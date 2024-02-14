@@ -75,6 +75,22 @@ function updateProduct(Request $request){
 }
 
 
+// delete
 
+function deleteProduct(Request $request){
+    Product::find($request->product_id)->delete();
+    return response()->json([
+        'status' => 'success',
+    ]);
+
+}//end method
+
+
+function paginateProduct(Request $request){
+
+    $products = Product::latest()->paginate(5);
+    return view('Product.product_paginate',compact('products'))->render();
+
+}
     
 }

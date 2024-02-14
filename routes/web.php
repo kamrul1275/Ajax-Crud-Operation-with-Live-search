@@ -26,3 +26,7 @@ Route::post('/add/product',[ProductController::class,'addProduct'])->name('add.p
 
 
 Route::post('/update/product',[ProductController::class,'updateProduct'])->name('update.product');
+
+Route::post('/delete/product',[ProductController::class,'deleteProduct'])->name('delete.product');
+
+Route::get('/paginate/product',[ProductController::class,'paginateProduct']);

@@ -5,8 +5,8 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
 
-
-
+<script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+      
 <script>
     $.ajaxSetup({
         headers: {
@@ -55,6 +55,34 @@
                         $('.table').load(location.href + ' .table');
 
 
+                        
+//   start toast
+
+
+Command: toastr["success"]("Product Successfully..", "success")
+
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+            // end toaster
+
+
+
+
                     }
 
                 },
@@ -82,7 +110,7 @@
 
         // edit show value
 
-    
+
          $(document).on('click', '.updateProduct', function(){
 
                 //alert('okt');
@@ -95,7 +123,7 @@
                 $('#up_id').val(id);
                 $('#up_name').val(name);
                 $('#up_price').val(price);
-            
+
 
          });
 
@@ -141,6 +169,30 @@ $.ajax({
 
             $('.table').load(location.href + ' .table');
 
+//   start toast
+
+
+Command: toastr["success"]("Product Successfully..", "success")
+
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+            // end toaster
+
 
         }
 
@@ -162,11 +214,120 @@ $.ajax({
     }
 
 
+
+
+
+
 });
 
 })
 
 
+
+
+//delete
+
+$(document).on('click', '.deleteProduct', function(e) {
+
+
+e.preventDefault();
+
+let product_id = $(this).data('id');
+
+//alert(product_id);
+
+if(confirm('are sure delete.?')){
+
+
+    $.ajax({
+
+url: "{{ route('delete.product') }}",
+method: "POST",
+
+data: {
+    product_id:product_id,
+
+},
+
+success: function(res) {
+
+    if (res.status == 'success') {
+
+        $('.table').load(location.href + ' .table');
+
+        
+//   start toast
+
+
+Command: toastr["success"]("Product delete Successfully..", "success")
+
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+            // end toaster
+
+
+
+
+    }
+
+},
+
+
+
+
+
+
+
+});
+
+
+}
+
+});
+
+
+
+// paginate
+
+
+
+$(document).on('click','.pagination a', function(e){
+    e.preventDefault(e);
+
+    let page= $(this).attr('href').split('page=')[1]
+    productPaginate(page);
+
+    //alert('oktp');
+})
+
+
+function productPaginate(page){
+
+    $.ajax({
+  
+        url:"/paginate/product?page="+page,
+        success:function(res){
+$('.table').html(res);
+        }
+
+    })
+
+}
 
 
     });
