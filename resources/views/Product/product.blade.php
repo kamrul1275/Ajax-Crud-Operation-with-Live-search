@@ -26,8 +26,6 @@
     <h3 class="text-center py-2">Ajax Crud Operation</h3>
 
 
-    <form>
-
 
 
     <div class="card">
@@ -38,52 +36,9 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
    Add Product
   </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="productModalLabel">Modal title</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
 
 
-<div id="errorMsg"></div>
 
-        <div class="modal-body">
-    
-
-
-         
-
-                <div class="mb-3">
-                    <label for="name" class="form-label">Name</label>
-                    <input type="text" class="form-control" name="name" id="name" aria-describedby="name">
-                  </div>
-             
-                <div class="mb-3">
-                  <label for="Price" class="form-label">Price</label>
-                  <input type="text" class="form-control" name="price" id="price" aria-describedby="Price">
-                </div>
-           
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="SubmiteForm"  class="btn btn-primary">Save changes</button>
-                  </div>
-          
-              
-              {{-- </form> --}}
-
-        </div>
-
-
-      </form>
-
-      </div>
-    </div>
-  </div>
 
 
             <!-- end modal -->
@@ -99,20 +54,36 @@
                   </tr>
                 </thead>
                 <tbody>
+
+                  @foreach ($products as $key=> $product)
+                    
+                 
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>4343</td>
+                    <th scope="row">{{$key+1}}</th>
+                    <td>{{$product->name}}</td>
+                    <td>{{$product->price}}</td>
                     <td>
         
-        <a href="" class="btn btn-success"><i class="las la-edit"></i></a>
+        <a href="" class="btn btn-success updateProduct" data-bs-toggle="modal" data-bs-target="#UpdateModal"
+         data-id="{{$product->id}}"  
+         data-name="{{$product->name}}"  
+         data-price="{{$product->price}}"  
+         
+         ><i class="las la-edit"></i></a>
+
+
+
         <a href="" class="btn btn-danger"><i class="las la-trash"></i></a>
         
                     </td>
                   </tr>
-               
+                  @endforeach
+
                 </tbody>
               </table>
+
+              {{ $products->links() }}
+
         </div>
       </div>
 
@@ -125,6 +96,8 @@
 
 
 @include('Product.product_js')
+@include('Product.add_product')
+@include('Product.update_product')
 
 </body>
 </html>
